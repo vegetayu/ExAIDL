@@ -9,10 +9,10 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.capsule.download.Callback;
+import com.capsule.download.DownloadCallback;
+import com.capsule.download.DownloadManager;
 import com.capsule.download.DownloadService;
-import com.capsule.download.IDownloadManager;
-import com.capsule.download.Task;
+import com.capsule.download.DownloadTask;
 
 import java.util.List;
 
@@ -43,10 +43,10 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             Logger.i("服务已连接");
-            IDownloadManager manager = IDownloadManager.Stub.asInterface(service);
+            DownloadManager manager = DownloadManager.Stub.asInterface(service);
             try {
                 manager.addDownloadTask("www.yuluyao.com", "/dev/tmp", "item_tag");
-                manager.addCallback(mCallback);
+                manager.addCallback(mDownloadCallback);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -59,10 +59,10 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
         }
     };
 
-    private Callback mCallback = new Callback.Stub() {
+    private DownloadCallback mDownloadCallback = new DownloadCallback.Stub() {
 
         @Override
-        public void onProgressUpdate(List<Task> list) throws RemoteException {
+        public void onProgressUpdate(List<DownloadTask> list) throws RemoteException {
             Logger.i("vegeta", "进度更新");
         }
     };

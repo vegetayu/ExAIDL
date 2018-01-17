@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by yuluyao on 2018/1/17.
  */
 
-public class Task implements Parcelable {
+public class DownloadTask implements Parcelable {
 
     private int id;
     private  String tag;
@@ -69,10 +69,10 @@ public class Task implements Parcelable {
         dest.writeString(this.sourceUrl);
     }
 
-    public Task() {
+    public DownloadTask() {
     }
 
-    protected Task(Parcel in) {
+    protected DownloadTask(Parcel in) {
         this.id = in.readInt();
         this.tag = in.readString();
         this.progressPercent = in.readInt();
@@ -80,15 +80,15 @@ public class Task implements Parcelable {
         this.sourceUrl = in.readString();
     }
 
-    public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
+    public static final Parcelable.Creator<DownloadTask> CREATOR = new Parcelable.Creator<DownloadTask>() {
         @Override
-        public Task createFromParcel(Parcel source) {
-            return new Task(source);
+        public DownloadTask createFromParcel(Parcel source) {
+            return new DownloadTask(source);
         }
 
         @Override
-        public Task[] newArray(int size) {
-            return new Task[size];
+        public DownloadTask[] newArray(int size) {
+            return new DownloadTask[size];
         }
     };
 }

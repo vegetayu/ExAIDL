@@ -18,29 +18,29 @@ import capsule.bamboo.Logger;
 
 public class DownloadService extends Service {
 
-    private CopyOnWriteArrayList<Task> mTaskList = new CopyOnWriteArrayList<>();
-    private RemoteCallbackList<Callback> mCallback = new RemoteCallbackList<>();
+    private CopyOnWriteArrayList<DownloadTask> mDownloadTaskList = new CopyOnWriteArrayList<>();
+    private RemoteCallbackList<DownloadCallback> mCallback = new RemoteCallbackList<>();
 
-    private IBinder mBinder = new IDownloadManager.Stub() {
+    private IBinder mBinder = new DownloadManager.Stub() {
         @Override
-        public List<Task> queryStatus() throws RemoteException {
-            return mTaskList;
+        public List<DownloadTask> queryStatus() throws RemoteException {
+            return mDownloadTaskList;
         }
 
         @Override
         public void addDownloadTask(String url, String path, String tag) throws RemoteException {
             Logger.i("收到任务：" + url + " ~~ " + path + " ~~ " + tag);
-//            mTaskList.add()
+//            mDownloadTaskList.add()
         }
 
         @Override
-        public void addCallback(Callback callback) throws RemoteException {
-            mCallback.register(callback);
+        public void addCallback(DownloadCallback downloadCallback) throws RemoteException {
+            mCallback.register(downloadCallback);
         }
 
         @Override
-        public void removeCallback(Callback callback) throws RemoteException {
-            mCallback.unregister(callback);
+        public void removeCallback(DownloadCallback downloadCallback) throws RemoteException {
+            mCallback.unregister(downloadCallback);
         }
     };
 
@@ -66,8 +66,8 @@ public class DownloadService extends Service {
                     Thread.sleep(5000);
                     int count = mCallback.beginBroadcast();
                     for (int j = 0; j < count; j++) {
-                        Callback item = mCallback.getBroadcastItem(j);
-                        item.onProgressUpdate(mTaskList);
+                        DownloadCallback item = mCallback.getBroadcastItem(j);
+                        item.onProgressUpdate(mDownloadTaskList);
                     }
                     mCallback.finishBroadcast();
                 } catch (InterruptedException e) {
