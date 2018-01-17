@@ -1,0 +1,29 @@
+@startuml
+
+interface IBinder{
+    +{abstract} boolean transact()
+}
+abstract class Binder{
+
+}
+interface IInterface{
+    +{abstract} IBinder asBinder()
+}
+interface IManager{
+    +{abstract} void addTask()
+}
+abstract class Stub
+abstract class Proxy
+
+IBinder <|.. Binder
+Binder <|-- Stub
+
+IInterface <|.. IManager
+
+IManager <|.. Stub
+IManager <|.. Proxy
+
+Stub ..> Proxy
+
+
+@enduml
