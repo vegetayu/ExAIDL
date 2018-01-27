@@ -1,6 +1,8 @@
 package com.capsule.exaidl;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remote);
         findViewById(R.id.btn_bind).setOnClickListener(this);
+
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
     }
 
