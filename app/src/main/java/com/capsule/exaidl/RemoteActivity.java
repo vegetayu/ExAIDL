@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.capsule.download.DownloadCallback;
@@ -18,7 +19,6 @@ import com.capsule.download.DownloadTask;
 
 import java.util.List;
 
-import capsule.bamboo.Logger;
 
 public class RemoteActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +46,7 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Logger.i("服务已连接");
+            Log.i("vegeta","服务已连接");
             DownloadManager manager = DownloadManager.Stub.asInterface(service);
             try {
                 manager.addDownloadTask("www.yuluyao.com", "/dev/tmp", "item_tag");
@@ -59,7 +59,7 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Logger.i("服务异常断开");
+            Log.i("vegeta","服务异常断开");
         }
     };
 
@@ -67,7 +67,7 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onProgressUpdate(List<DownloadTask> list) throws RemoteException {
-            Logger.i("vegeta", "进度更新");
+            Log.i("vegeta", "进度更新");
         }
     };
 }

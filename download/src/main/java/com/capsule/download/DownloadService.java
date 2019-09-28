@@ -6,11 +6,12 @@ import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import capsule.bamboo.Logger;
+
 
 /**
  * Created by yuluyao on 2018/1/16.
@@ -29,7 +30,7 @@ public class DownloadService extends Service {
 
         @Override
         public void addDownloadTask(String url, String path, String tag) throws RemoteException {
-            Logger.i("收到任务：" + url + " ~~ " + path + " ~~ " + tag);
+            Log.i("vegeta","收到任务：" + url + " ~~ " + path + " ~~ " + tag);
 //            mDownloadTaskList.add()
         }
 
